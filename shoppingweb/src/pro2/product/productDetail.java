@@ -1,18 +1,60 @@
 package pro2.product;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
+
+import pro2.pojo.Product;
+import pro2.service.ProductService;
+import pro2.service.impl.ProductServiceImpl;
+import pro2.pojo.Product;
+
+/**
+ * Servlet implementation class productDetail
+ */
 
 public class productDetail extends HttpServlet {
-	public void doGet(HttpServletRequest req,
-			HttpServletResponse resp)throws ServletException, IOException {		
-		resp.setContentType("text/html;charset=UTF-8");	
-		PrintWriter out = resp.getWriter();
+	private static final long serialVersionUID = 1L;
+    
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public productDetail() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	public void toError(HttpServletResponse resp, String message)  throws IOException {
+		PrintWriter out = resp.getWriter();	
 		
+		out.println("<html>");
+		out.println("<head>");
+		out.println("	<title>Error</title>");
+		out.println("</head>");
+		out.println("<body>");
+		out.println("	<h2 align=\"center\">Error</h2>");
+		out.println("	<hr>");
+		out.println("	System Error," + message + "!");
+		out.println("</body>");
+		out.println("</html>");
+		
+		out.close();
+	}
+	
+	private void toProductDetail(HttpServletResponse resp, Product product) throws IOException 
+    {
+    	resp.setContentType("text/html;charset=UTF-8");
+		PrintWriter out=resp.getWriter();
+		out.println("<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN'>");
 		out.print("<html>");
 		out.print("<head>");
 		out.print("<title>");
@@ -22,8 +64,8 @@ public class productDetail extends HttpServlet {
 		out.print("<meta name='description' content='达内电子商务门户'>");
 		out.print("<link href='css/tarena.css' rel=stylesheet>");				
 		out.print("</head>");
-		
 		out.print("<body topmargin='0' leftmargin='0' rightmargin='0' bottommargin='0'>");
+		
 		out.print("<!-- Header Start -->");
 		out.print("<table width='100%' border='0' cellspacing='0' cellpadding='0' id='table2'>");
 		
@@ -36,6 +78,7 @@ public class productDetail extends HttpServlet {
 		out.print("</td>");
 		out.print("</tr>");
 		out.print("	<table width='100%' border='0' cellspacing='0' cellpadding='0'>");
+		
 		out.print("<tr>");
 		out.print("<td background='images/dh_bg.gif' align='left' height='12'>");
 		out.print("<table width='100' border='0' cellspacing='0' cellpadding='0' align='center'>");
@@ -77,6 +120,7 @@ public class productDetail extends HttpServlet {
 		out.print("<td width='65%'>");
 		out.print("<br>");
 		out.print(">>");
+		
 		out.print("欢迎访问");
 		out.print("<b>");
 		out.print("达内电子商务门户");
@@ -86,9 +130,9 @@ public class productDetail extends HttpServlet {
 		out.print("</td>");
 		out.print("</tr>");
 		out.print("</table>");
-		out.print("<!-- Header End -->");
-		
+		out.print("<!-- Header End -->");	
 		out.print("<!-- Body Start -->");
+		
 		out.print("<table cellspacing='1' cellpadding='3' align='center' class='tableBorder2'>");
 		out.print("<tr>");
 		out.print("<td height='25' valign='middle'>");
@@ -97,7 +141,11 @@ public class productDetail extends HttpServlet {
 		out.print("达内电子商务门户");
 		out.print("</a>");
 		out.print("→");
+		out.println("<a href='productList'>");
 		out.print("产品明细");
+		out.println("</a>");
+		out.println("→");
+		out.println("<b>");
 		out.print("</td>");
 		out.print("</tr>");
 		out.print("</table>");
@@ -115,35 +163,39 @@ public class productDetail extends HttpServlet {
 out.print("</tr>");
 out.print("<tr>");
 	out.print("<td class=tablebody1 valign='middle' width='25%' align='center'>");
+	
 	out.print("[ 作 &nbsp者 ]");
+	
 	out.print("</td>");
 	
 	out.print("<td class=tablebody1 valign='middle' width='75%'>");
-	out.print("孙卫琴");
+	out.print(product.getauthor());
 	out.print("</td>");
 out.print("</tr>");
 out.print("<tr>");
 	out.print("<td class=tablebody1 valign='middle' width='25%' align='center'>");
+	
 	out.print("[ 价 &nbsp格 ]");
 	
 	out.print("</td>");
 	
 	out.print("<td class=tablebody1 valign='middle' width='75%'>");
-	out.print("59.00");
+	out.print(product.getbasePrice());
 	
 	out.print("</td>");
-out.print("</tr>");
-out.print("<tr>");
+    out.print("</tr>");
+    out.print("<tr>");
 	out.print("<td class=tablebody1 valign='middle' width='25%' align='center'>");
+	
 	out.print("[出 版 社]");
 	
 	out.print("</td>");
 	
 	out.print("<td class=tablebody1 valign='middle' width='75%'>");
-	out.print("电子工业出版社");
+	out.print(product.getpublish());
 	out.print("</td>");
-out.print("</tr>");
-out.print("<tr>");
+    out.print("</tr>");
+    out.print("<tr>");
 	out.print("<td class=tablebody1 valign='middle' width='25%' align='center'>");
 	out.print("[ 书");
 	out.print("&nbsp");
@@ -152,7 +204,7 @@ out.print("<tr>");
 	out.print("</td>");
 	
 	out.print("<td class=tablebody1 valign='middle' width='75%'>");
-	out.print("2");
+	out.print(product.getpages());
 	out.print("</td>");
 out.print("</tr>");
 out.print("<tr>");
@@ -163,7 +215,7 @@ out.print("<tr>");
 	out.print("</td>");
 	
 	out.print("<td class=tablebody1 valign='middle' width='75%'>");
-	out.print("600");
+	out.print(product.getproductid());
 	out.print("</td>");
 out.print("</tr>");
 out.print("<tr>");
@@ -172,7 +224,7 @@ out.print("<tr>");
 	out.print("</td>");
 	
 	out.print("<td class=tablebody1 valign='middle' width='75%'>");
-	out.print("孙卫琴的计算机书籍 创作心得:");
+	out.print(product.getcategoryid());
 		out.print("<br>");
 	out.print("</td>");
 out.print("</tr>");
@@ -184,14 +236,13 @@ out.print("<tr>");
 	out.print("</td>");
 	
 	out.print("<td class=tablebody1 valign='middle' width='75%'>");
-	out.print("如果说书的结构好比房屋的框架，书的内容则好比房屋的具体组成元素。计算机书的内容的形式分为：文字、 表格、图和范例。为了把某种知识讲清楚，常常需要综合使用这四种形式的元素......");
+	out.print(product.getdescription());
 	out.print("<br>");
-	out.print("继《Tomcat 与 Java Web开发技术详解(含光盘)》和《精通Struts：基于MVC的Java Web设计与开发(含光盘)》之后，应广大读者的强烈要求，孙卫琴的又一力作《精通Hibernate：Java对象持久化技术详解》，正处在迎接面市的准备当中。\\nHibernate是一个基于Java的开放源代码的持久化中间件，它对JDBC作了轻量级封装，不仅提供ORM映射服务，还提供数据查询和数据缓存功能，Java开发人员可以方便的通过Hibernate API来操纵数据库。\r\n现在，越来越多的Java开发人员把Hibernate作为企业应用和关系数据库之间的中间件，以节省和对象持久化有关的30%的JDBC编程工作量。 2005年，Hibernate作为优秀的类库和组件，荣获了第15届Jolt大奖。Hibernate之所以能够流行，归功于它特有的优势。");
+
 	out.print("<br>");
-	out.print("\r\n　　本书结合大量典型的实例，详细介绍了运用目前最成熟的Hibernate2.1版本进行Java对象持久化的技术。Hibernate是连接Java 对象模型和关系数据模型的桥梁，通过本书，读者不仅能掌握用Hibernate工具对这两种模型进行映射的技术，还能获得设计与开发Java对象模型和关系数据模型的先进经验。"); 
-	out.print("</td>");
-out.print("</tr>");
-out.print("<tr>");
+	
+    out.print("</tr>");
+    out.print("<tr>");
 	out.print("<td class=tablebody1 valign='middle' width='25%'>");
 	
 	out.print("</td>");
@@ -241,19 +292,42 @@ out.print("</tr>");
 out.print("</table>");
 out.print("<!-- Footer End -->");
 out.print("</body>");
-out.print("</html>");
-		
-out.close();		
+out.print("</html>");	
 		
 		
 	}
 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+    response.setContentType("text/html;charset=UTF-8");		
+		
+		
+		try{
+			ProductService productService = new ProductServiceImpl();
+			
+			
+//			StudentService studentService = ServiceFactory.getStudentService();
+			
+			Product product = productService.getproductDetail();
+			
 
-public void doPost(HttpServletRequest req, 
-		HttpServletResponse resp) throws ServletException, IOException {
+			toProductDetail(response,product);
+			
+		} catch (Exception e){
+			
+			toError(response, e.getMessage());
+		}
+		
+		
+	}
 
-
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	// TODO Auto-generated method stub
+		
 }
-
 
 }

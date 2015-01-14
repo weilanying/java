@@ -93,7 +93,7 @@
     <description></description>
     <display-name>orderConfirm</display-name>
     <servlet-name>orderConfirm</servlet-name>
-    <servlet-class>shoppingCart.orderConfirm</servlet-class>
+    <servlet-class>pro3.shoppingCart.orderConfirm</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>orderConfirm</servlet-name>
@@ -103,7 +103,7 @@
     <description></description>
     <display-name>shoppingCart</display-name>
     <servlet-name>shoppingCart</servlet-name>
-    <servlet-class>shoppingCart.shoppingCart</servlet-class>
+    <servlet-class>pro3.shoppingCart.shoppingCart</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>shoppingCart</servlet-name>

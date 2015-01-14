@@ -1,6 +1,6 @@
 package pro3.pojo;
 
-public class Product {
+public class ShoppingCart {
 	private String productid;
 	private String name;
 	private String description;
@@ -10,6 +10,7 @@ public class Product {
 	private String publish;
 	private String pages;
 	private String images;
+	private String amount;
 	
 	public String getproductid(){
 		return productid;
@@ -72,5 +73,11 @@ public class Product {
 	}
 	public void setimages(String images){
 		this.images=images;
+	}
+	public String getamount(){
+		return amount;
+	}
+	public void setamount(String amount){
+		this.amount=amount;
 	}
 }
